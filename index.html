@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOĞUM GÜNÜ SİTESİ</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000; color: white; overflow-x: hidden; }
+        .topbar { display: flex; background: #1a1a1a; padding: 15px; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+        .menu-btn { font-size: 30px; cursor: pointer; margin-right: 20px; color: #ff4757; }
+        .sidebar { position: fixed; left: -250px; top: 0; width: 220px; height: 100%; background: #111; padding-top: 70px; transition: 0.3s; z-index: 99; border-right: 1px solid #333; }
+        .sidebar a { display: block; padding: 15px 25px; color: white; text-decoration: none; cursor: pointer; border-bottom: 1px solid #222; }
+        .sidebar a:hover { background: #222; color: #ff4757; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; padding: 20px; }
+        .card { background: #1a1a1a; border-radius: 12px; padding: 8px; text-align: center; border: 1px solid #333; }
+        .card img, .card video { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; cursor: pointer; display: block; }
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; }
+        #modal img, #modal video { max-width: 90%; max-height: 85%; border-radius: 10px; }
+    </style>
+</head>
+<body onclick="startMusic()">
+
+<audio id="bgmusic" src="model.m4a" loop></audio>
+
+<div class="topbar">
+    <div class="menu-btn" onclick="toggleMenu(event)">☰</div>
+    <div style="font-weight: bold;">İYİ Kİ DOĞDUN! 🎉</div>
+</div>
+
+<div class="sidebar" id="sidebar">
+    <a onclick="filterMedia('all')">🏠 Ana Sayfa</a>
+    <a onclick="filterMedia('foto')">📸 Fotoğraflar</a>
+    <a onclick="filterMedia('video')">🎥 Videolar</a>
+</div>
+
+<h2 id="title" style="padding-left: 20px;">Koleksiyon</h2>
+
+<div class="grid" id="content">
+    <div class="card foto"><img src="IMG-Art1.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art2.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art3.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art5.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art6.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art7.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art8.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art9.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art10.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art11.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art12.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art13.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art14.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art15.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art16.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art17.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art18.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art19.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art20.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art21.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art22.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art23.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art24.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art25.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art26.jpg" onclick="openMedia(this.src, 'img')"></div>
+    <div class="card foto"><img src="IMG-Art28.jpg" onclick="openMedia(this.src, 'img')"></div>
+
+    <div class="card video"><video src="VID-EO1.mp4" onclick="openMedia(this.src, 'video')"></video><p>Video 1</p></div>
+    <div class="card video"><video src="VID-EO2.mp4" onclick="openMedia(this.src, 'video')"></video><p>Video 2</p></div>
+    <div class="card video"><video src="VID-EO3.mp4" onclick="openMedia(this.src, 'video')"></video><p>Video 3</p></div>
+    <div class="card video"><video src="VID-EO4.mp4" onclick="openMedia(this.src, 'video')"></video><p>Video 4</p></div>
+    <div class="card video"><video src="VID-EO5.mp4" onclick="openMedia(this.src, 'video')"></video><p>Video 5</p></div>
+    <div class="card video"><video src="VID-EO6.mp4" onclick="openMedia(this.src, 'video')"></video><p>Video 6</p></div>
+</div>
+
+<div id="modal" onclick="closeModal()">
+    <div id="modalContent"></div>
+</div>
+
+<script>
+    let musicStarted = false;
+    window.onload = () => { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); };
+
+    function startMusic() {
+        let music = document.getElementById('bgmusic');
+        if (!musicStarted) { // ŞARKININ ÜST ÜSTE BİNMESİNİ ENGELLER
+            music.play().catch(() => {});
+            musicStarted = true;
+        }
+    }
+
+    function filterMedia(type) {
+        let cards = document.querySelectorAll('.card');
+        let title = document.getElementById('title');
+        cards.forEach(card => {
+            if (type === 'all') { card.style.display = "block"; title.innerText = "Ana Sayfa"; }
+            else { card.style.display = card.classList.contains(type) ? "block" : "none"; 
+                   title.innerText = (type === 'foto' ? "Fotoğraflar" : "Videolar"); }
+        });
+        document.getElementById("sidebar").style.left = "-250px";
+    }
+
+    function toggleMenu(event) {
+        if(event) event.stopPropagation();
+        let side = document.getElementById("sidebar");
+        side.style.left = side.style.left === "0px" ? "-250px" : "0px";
+    }
+
+    document.addEventListener('click', (e) => {
+        let side = document.getElementById("sidebar");
+        if (!side.contains(e.target) && e.target.className !== "menu-btn") { side.style.left = "-250px"; }
+    });
+
+    function openMedia(src, type) {
+        let modal = document.getElementById("modal");
+        let container = document.getElementById("modalContent");
+        modal.style.display = "flex";
+        container.innerHTML = type === 'img' ? `<img src="${src}">` : `<video src="${src}" controls autoplay style="width:100%"></video>`;
+    }
+
+    function closeModal() {
+        document.getElementById("modal").style.display = "none";
+        document.getElementById("modalContent").innerHTML = "";
+    }
+</script>
+</body>
+</html>
